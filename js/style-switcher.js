@@ -13,17 +13,12 @@ window.addEventListener("scroll", () => {
 });
 
 // ========================= Theme Colors ====================================
-const alternateStyle = document.querySelectorAll(".alternate-style");
-function setActiveStyle(color) {
-  alternateStyle.forEach((style) => {
-    if (color === style.getAttribute("title")) {
-      style.removeAttribute("disabled");
-    } else {
-      style.setAttribute("disabled", "true");
-    }
-  });
+const theme_color = document.querySelector(":root");
+function changeThemeColor(color) {
+  const set_theme_color = localStorage.setItem('theme-color', color);
+  const get_theme_color = localStorage.getItem('theme-color');
+  theme_color.style.setProperty('--skin-color', get_theme_color);
 }
-
 
 // ========================= Theme Day-Night Mode ====================================
 
@@ -35,6 +30,15 @@ dayNight.addEventListener("click", () => {
 });
 
 window.addEventListener("load", () => {
+
+  //set the default theme color when window load
+  if (localStorage.getItem('theme-color') == '') {
+    localStorage.setItem('theme-color', '24, 84, 180');
+  } else {
+    const get_theme_color = localStorage.getItem('theme-color');
+    theme_color.style.setProperty('--skin-color', get_theme_color);
+  }
+
   if (document.body.classList.contains("darks")) {
     dayNight.querySelector("i").classList.add("fa-sun");
   } else {

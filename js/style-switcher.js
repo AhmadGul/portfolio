@@ -30,15 +30,18 @@ dayNight.addEventListener("click", () => {
 });
 
 window.addEventListener("load", () => {
+  let get_theme_color = localStorage.getItem('theme-color');
 
-  //set the default theme color when window load
-  if (localStorage.getItem('theme-color') == '') {
-    localStorage.setItem('theme-color', '24, 84, 180');
-  } else {
-    const get_theme_color = localStorage.getItem('theme-color');
-    theme_color.style.setProperty('--skin-color', get_theme_color);
+  // If not set yet, set default color and apply it
+  if (!get_theme_color) {
+    get_theme_color = '24, 84, 180'; // your default RGB value
+    localStorage.setItem('theme-color', get_theme_color);
   }
 
+  // Apply the theme color
+  theme_color.style.setProperty('--skin-color', get_theme_color);
+
+  // Set day/night icon state
   if (document.body.classList.contains("darks")) {
     dayNight.querySelector("i").classList.add("fa-sun");
   } else {
